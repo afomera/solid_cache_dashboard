@@ -1,0 +1,32 @@
+<nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between h-16">
+      <div class="flex">
+        <div class="shrink-0 flex items-center">
+          <h1 class="text-xl font-bold">
+            <%= link_to SolidCacheDashboard.configuration.title, root_path, class: "text-gray-900 dark:text-white" %>
+          </h1>
+        </div>
+        <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
+          <%= link_to "Dashboard", root_path, class: "px-3 py-2 rounded-md text-sm font-medium #{'bg-gray-100 dark:bg-gray-700' if controller_name == 'dashboard'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white" %>
+          <%= link_to "Cache Entries", cache_entries_path, class: "px-3 py-2 rounded-md text-sm font-medium #{'bg-gray-100 dark:bg-gray-700' if controller_name == 'cache_entries'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white" %>
+          <%= link_to "Cache Events", cache_events_path, class: "px-3 py-2 rounded-md text-sm font-medium #{'bg-gray-100 dark:bg-gray-700' if controller_name == 'cache_events'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white" %>
+          <%= link_to "Stats", stats_path, class: "px-3 py-2 rounded-md text-sm font-medium #{'bg-gray-100 dark:bg-gray-700' if controller_name == 'stats'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white" %>
+        </div>
+      </div>
+      <div class="hidden sm:ml-6 sm:flex sm:items-center">
+        <%= button_to toggle_appearance_path, method: :post, class: "bg-white dark:bg-gray-800 p-1 rounded-full text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-hidden" do %>
+          <% if dark_mode? %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          <% else %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

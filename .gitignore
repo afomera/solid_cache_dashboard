@@ -1,0 +1,23 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+*.gem
+*.rbc
+.DS_Store
+
+/node_modules
+
+# RVM files
+.ruby-version
+.ruby-gemset
+
+# Environment normalization
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
+/Gemfile.lock

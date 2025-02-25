@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" class="<%= dark_mode? ? 'dark' : '' %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page_title %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "solid_cache_dashboard/application", media: "all" %>
+  <%= javascript_include_tag "solid_cache_dashboard/application", defer: true %>
+  <%= javascript_include_tag "chartkick" %>
+  <%= javascript_include_tag "Chart.bundle" %>
+  <%= javascript_include_tag "solid_cache_dashboard/alpine.js", defer: true %>
+  <%= yield :head %>
+</head>
+<body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+  <div class="min-h-screen flex flex-col">
+    <%= render "solid_cache_dashboard/application/navbar" %>
+    
+    <main class="grow container mx-auto px-4 py-8">
+      <%= render "solid_cache_dashboard/application/flash_messages" %>
+      <%= yield %>
+    </main>
+    
+    <%= render "solid_cache_dashboard/application/footer" %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<% if flash.any? %>
+  <div class="mb-4">
+    <% flash.each do |type, message| %>
+      <% alert_class = type.to_s == "notice" ? "bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100" : "bg-red-100 text-red-700 dark:bg-red-700 dark:text-red-100" %>
+      <div class="<%= alert_class %> p-4 rounded mb-4" role="alert">
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
