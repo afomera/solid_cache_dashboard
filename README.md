@@ -2,6 +2,8 @@
 
 A beautiful dashboard for [solid_cache](https://github.com/rails/solid_cache). Monitor your Rails application cache performance with detailed stats and visualizations.
 
+Inspired by [Solid Queue Dashboard](https://github.com/akodkod/solid-queue-dashboard)
+
 ## Features
 
 - Real-time monitoring of cache hits, misses, writes, and deletes
