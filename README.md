@@ -15,18 +15,18 @@ A beautiful dashboard for [solid_cache](https://github.com/rails/solid_cache). M
 
 <p align="center">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_dark.png">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_light.png">
-      <img alt="Solid Cache Dashboard for Rails" src="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_light.png">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_dark_v2.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_light_v2.png">
+      <img alt="Solid Cache Dashboard for Rails" src="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_light_v2.png">
     </picture>
 </p>
 ---
 
 <p align="center">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_dark.png">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_light.png">
-      <img alt="Solid Cache Dashboard for Rails" src="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_light.png">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_dark_v2.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_light_v2.png">
+      <img alt="Solid Cache Dashboard for Rails" src="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_light_v2.png">
     </picture>
 </p>
 
