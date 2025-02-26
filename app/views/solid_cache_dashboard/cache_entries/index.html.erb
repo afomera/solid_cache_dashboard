@@ -1,8 +1,28 @@
 <% content_for :page_title, "Cache Entries" %>
 
 <div class="bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg mb-6">
-  <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-    <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Entries</h3>
+  <div class="px-4 py-5 sm:px-6 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+    <div class="flex items-center">
+      <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Entries</h3>
+    </div>
+    
+    <!-- Search Form -->
+    <div class="w-full md:w-1/2 lg:w-1/3">
+      <%= form_with url: cache_entries_path, method: :get, class: "flex" do |f| %>
+        <div class="relative flex-grow">
+          <%= f.text_field :search, value: params[:search], placeholder: "Search by key...", class: "block h-10 px-3 w-full rounded-md border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" %>
+          <% if params[:search].present? %>
+            <%= link_to cache_entries_path, class: "absolute inset-y-0 right-0 flex items-center pr-3 text-zinc-400 hover:text-zinc-500" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.submit "Search", class: "ml-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      <% end %>
+    </div>
+    
     <div class="flex space-x-2">
       <%= button_to clear_all_cache_entries_path, method: :delete, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500", data: { confirm: "Are you sure you want to clear all cache entries? This cannot be undone." } do %>
         <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -13,6 +33,20 @@
     </div>
   </div>
   <div class="border-t border-zinc-200 dark:border-zinc-700">
+    <% if params[:search].present? %>
+      <div class="px-4 py-2 bg-blue-50 dark:bg-background/20 border-b border-zinc-200 dark:border-zinc-700">
+        <p class="text-sm text-zinc-700 dark:text-zinc-300">
+          <span class="font-medium">Search results for:</span> "<%= params[:search] %>"
+          <% if @pagy.count == 0 %>
+            <span class="text-red-600 dark:text-red-400 font-medium">No matches found</span>
+          <% elsif @pagy.count == 1 %>
+            <span class="text-green-600 dark:text-green-400 font-medium">1 match found</span>
+          <% else %>
+            <span class="text-green-600 dark:text-green-400 font-medium"><%= @pagy.count %> matches found</span>
+          <% end %>
+        </p>
+      </div>
+    <% end %>
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
         <thead class="bg-zinc-50 dark:bg-card">
@@ -67,7 +101,7 @@
     <%= render partial: 'solid_cache_dashboard/application/pagination', locals: {
       pagy: @pagy,
       item_name: "entry",
-      path_for_page: -> (page) { cache_entries_path(page: page) }
+      path_for_page: -> (page) { cache_entries_path(page: page, search: params[:search]) }
     } %>
   </div>
 </div>

@@ -1,7 +1,21 @@
 module SolidCacheDashboard
   class CacheEntriesController < ApplicationController
     def index
-      @pagy, entries = pagy(SolidCache::Entry.order(created_at: :desc), items: 25)
+      query = SolidCache::Entry.order(created_at: :desc)
+      
+      # Apply search filter if provided
+      if params[:search].present?
+        search_term = params[:search].strip
+        
+        # Convert search term to key hash for exact key_hash lookups
+        require 'digest'
+        key_hash = Digest::SHA256.digest(search_term).unpack("q>").first rescue nil
+        
+        # Search by key or key_hash
+        query = query.where("key LIKE ? OR key_hash = ?", "%#{search_term}%", key_hash)
+      end
+      
+      @pagy, entries = pagy(query, items: 25)
       @cache_entries = SolidCacheDashboard.decorate(entries)
     end
 
