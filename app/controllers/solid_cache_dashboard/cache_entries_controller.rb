@@ -1,9 +1,8 @@
 module SolidCacheDashboard
   class CacheEntriesController < ApplicationController
     def index
-      @cache_entries = SolidCacheDashboard.decorate(
-        SolidCache::Entry.order(created_at: :desc)#.page(params[:page]).per(25)
-      )
+      @pagy, entries = pagy(SolidCache::Entry.order(created_at: :desc), items: 25)
+      @cache_entries = SolidCacheDashboard.decorate(entries)
     end
 
     def show

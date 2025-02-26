@@ -13,7 +13,22 @@ A beautiful dashboard for [solid_cache](https://github.com/rails/solid_cache). M
 
 ## Screenshots
 
-_Screenshots coming soon_
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_light.png">
+      <img alt="Solid Cache Dashboard for Rails" src="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/dashboard_light.png">
+    </picture>
+</p>
+---
+
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_light.png">
+      <img alt="Solid Cache Dashboard for Rails" src="https://raw.githubusercontent.com/afomera/solid_cache_dashboard/refs/heads/main/docs/screenshots/stats_light.png">
+    </picture>
+</p>
 
 ## Installation
 

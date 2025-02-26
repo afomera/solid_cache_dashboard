@@ -2,7 +2,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
   <!-- Cache Entries Count -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-blue-100 dark:bg-blue-700 rounded-md p-3">
@@ -11,11 +11,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Cache Entries
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= @cache_entries_count %>
             </div>
           </dd>
@@ -25,7 +25,7 @@
   </div>
 
   <!-- Cache Size -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-purple-100 dark:bg-purple-700 rounded-md p-3">
@@ -34,11 +34,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Cache Size
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= @cache_entries_human_size %>
             </div>
           </dd>
@@ -48,7 +48,7 @@
   </div>
 
   <!-- Hit Ratio -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-sky-100 dark:bg-sky-700 rounded-md p-3">
@@ -57,11 +57,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Hit Ratio
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= @hit_percentage %>
             </div>
           </dd>
@@ -71,7 +71,7 @@
   </div>
 
   <!-- Total Operations -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-indigo-100 dark:bg-indigo-700 rounded-md p-3">
@@ -80,11 +80,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Total Operations
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= @hit_count + @miss_count + @write_count + @delete_count %>
             </div>
           </dd>
@@ -97,64 +97,64 @@
 <!-- Event Type Breakdown -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
   <!-- Event Types -->
-  <div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg">
+  <div class="bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Cache Operation Metrics</h3>
+      <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Operation Metrics</h3>
     </div>
-    <div class="border-t border-gray-200 dark:border-gray-700">
+    <div class="border-t border-zinc-200 dark:border-zinc-700">
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-900">
+        <table class="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
+          <thead class="bg-zinc-50 dark:bg-card">
             <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Operation</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Count</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Percentage</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Operation</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Count</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Percentage</th>
             </tr>
           </thead>
-          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody class="bg-white dark:bg-background divide-y divide-zinc-200 dark:divide-zinc-700">
             <% total_events = @hit_count + @miss_count + @write_count + @delete_count %>
             <% total_events = 1 if total_events.zero? %>
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900 dark:text-white">
                 <%= badge "Hit", "green" %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= @hit_count %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= "#{((@hit_count.to_f / total_events) * 100).round(2)}%" %>
               </td>
             </tr>
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900 dark:text-white">
                 <%= badge "Miss", "amber" %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= @miss_count %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= "#{((@miss_count.to_f / total_events) * 100).round(2)}%" %>
               </td>
             </tr>
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900 dark:text-white">
                 <%= badge "Write", "blue" %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= @write_count %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= "#{((@write_count.to_f / total_events) * 100).round(2)}%" %>
               </td>
             </tr>
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900 dark:text-white">
                 <%= badge "Delete", "red" %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= @delete_count %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                 <%= "#{((@delete_count.to_f / total_events) * 100).round(2)}%" %>
               </td>
             </tr>
@@ -165,17 +165,17 @@
   </div>
 
   <!-- Read Performance -->
-  <div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg">
+  <div class="bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Read Performance</h3>
+      <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Read Performance</h3>
     </div>
-    <div class="border-t border-gray-200 dark:border-gray-700">
+    <div class="border-t border-zinc-200 dark:border-zinc-700">
       <div class="px-4 py-5 sm:p-6">
         <div class="space-y-4">
           <div>
-            <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400">Hit Rate</h4>
+            <h4 class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Hit Rate</h4>
             <div class="mt-2 relative pt-1">
-              <div class="overflow-hidden h-6 text-xs flex rounded-full bg-gray-200 dark:bg-gray-700">
+              <div class="overflow-hidden h-6 text-xs flex rounded-full bg-zinc-200 dark:bg-secondary">
                 <div style="width:<%= @hit_percentage %>" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 dark:bg-green-600 rounded-l-full">
                   <span class="px-2 font-semibold"><%= @hit_percentage %></span>
                 </div>
@@ -183,7 +183,7 @@
                   <span class="px-2 font-semibold"><%= "#{(100 - (@hit_ratio * 100).round(2))}%" %></span>
                 </div>
               </div>
-              <div class="mt-1 flex justify-between text-xs text-gray-500 dark:text-gray-400">
+              <div class="mt-1 flex justify-between text-xs text-zinc-500 dark:text-zinc-400">
                 <span>Hits: <%= @hit_count %></span>
                 <span>Misses: <%= @miss_count %></span>
               </div>
@@ -191,7 +191,7 @@
           </div>
 
           <div class="pt-4">
-            <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400">Operation Distribution</h4>
+            <h4 class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Operation Distribution</h4>
             <div class="mt-2 flex flex-col space-y-2">
               <div class="relative pt-1">
                 <div class="flex mb-2 items-center justify-between">
@@ -206,7 +206,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
+                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-zinc-200 dark:bg-secondary">
                   <div style="width:<%= (((@hit_count + @miss_count).to_f / total_events) * 100).round(2) %>%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 dark:bg-green-600"></div>
                 </div>
               </div>
@@ -223,7 +223,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
+                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-zinc-200 dark:bg-secondary">
                   <div style="width:<%= ((@write_count.to_f / total_events) * 100).round(2) %>%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500 dark:bg-blue-600"></div>
                 </div>
               </div>
@@ -240,7 +240,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
+                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-zinc-200 dark:bg-secondary">
                   <div style="width:<%= ((@delete_count.to_f / total_events) * 100).round(2) %>%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500 dark:bg-red-600"></div>
                 </div>
               </div>
@@ -254,33 +254,33 @@
 
 <!-- Cache Storage Stats -->
 <div class="grid grid-cols-1 gap-6">
-  <div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg">
+  <div class="bg-white dark:bg-card shadow-sm overflow-hidden rounded-lg">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Cache Storage Details</h3>
+      <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Storage Details</h3>
     </div>
-    <div class="border-t border-gray-200 dark:border-gray-700">
-      <div class="divide-y divide-gray-200 dark:divide-gray-700">
+    <div class="border-t border-zinc-200 dark:border-zinc-700">
+      <div class="divide-y divide-zinc-200 dark:divide-zinc-700">
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
             Total Entries
           </dt>
-          <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0">
+          <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0">
             <%= @cache_entries_count %>
           </dd>
         </div>
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
             Total Size
           </dt>
-          <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0">
+          <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0">
             <%= @cache_entries_human_size %> (<%= @cache_entries_size %> bytes)
           </dd>
         </div>
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
             Average Entry Size
           </dt>
-          <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0">
+          <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0">
             <% if @cache_entries_count > 0 %>
               <%= ActiveSupport::NumberHelper.number_to_human_size(@cache_entries_size / @cache_entries_count) %>
             <% else %>
@@ -289,10 +289,10 @@
           </dd>
         </div>
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
             Hit Ratio
           </dt>
-          <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0">
+          <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0">
             <%= @hit_percentage %> (<%= @hit_count %> hits / <%= @hit_count + @miss_count %> reads)
           </dd>
         </div>

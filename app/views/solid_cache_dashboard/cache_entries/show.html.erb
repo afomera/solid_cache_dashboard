@@ -9,9 +9,14 @@
   <% end %>
 </div>
 
-<div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg mb-6">
+<div class="bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg mb-6">
   <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Cache Entry Details</h3>
+    <div class="flex items-center">
+      <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Entry Details</h3>
+      <div class="ml-3">
+        <%= @cache_entry.status_badge %>
+      </div>
+    </div>
     <div>
       <%= button_to delete_cache_entry_path(@cache_entry.key_hash), method: :delete, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500", data: { confirm: "Are you sure you want to delete this cache entry? This cannot be undone." } do %>
         <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -21,80 +26,208 @@
       <% end %>
     </div>
   </div>
-  <div class="border-t border-gray-200 dark:border-gray-700">
+  <div class="border-t border-zinc-200 dark:border-zinc-700">
     <dl>
-      <div class="bg-gray-50 dark:bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Key</dt>
-        <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2 break-all">
+      <!-- Basic Information -->
+      <div class="bg-zinc-50 dark:bg-card px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Key</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2 break-all">
           <%= @cache_entry.key %>
         </dd>
       </div>
-      <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Key Hash</dt>
-        <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+      <div class="bg-white dark:bg-background px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Key Hash</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
           <%= @cache_entry.key_hash %>
         </dd>
       </div>
-      <div class="bg-gray-50 dark:bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Size</dt>
-        <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
-          <%= @cache_entry.human_byte_size %> (<%= @cache_entry.byte_size %> bytes)
-        </dd>
-      </div>
-      <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
-        <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+      <div class="bg-zinc-50 dark:bg-card px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Created At</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
           <%= @cache_entry.created_at.to_fs(:long) %> (<%= @cache_entry.created_at_ago %>)
         </dd>
       </div>
-      <div class="bg-gray-50 dark:bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Value Type</dt>
-        <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+      
+      <!-- Expiration Information -->
+      <div class="bg-white dark:bg-background px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Expiration Status</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
+          <% if @cache_entry.expires_at %>
+            <div class="flex flex-col gap-2">
+              <% if @cache_entry.expires_at <= Time.now %>
+                <div class="flex items-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-800 text-amber-800 dark:text-amber-100 mr-2">
+                    <svg class="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                    Expired
+                  </span>
+                </div>
+                <div>
+                  <span class="font-medium">Expired at:</span> <%= @cache_entry.expires_at.to_fs(:long) %>
+                </div>
+                <div>
+                  <span class="font-medium">Time since expiration:</span> <%= @cache_entry.time_ago_in_words(@cache_entry.expires_at, Time.now) %>
+                </div>
+              <% else %>
+                <div class="flex items-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100 mr-2">
+                    <svg class="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Active
+                  </span>
+                </div>
+                <div>
+                  <span class="font-medium">Expires at:</span> <%= @cache_entry.expires_at.to_fs(:long) %>
+                </div>
+                <div>
+                  <span class="font-medium">Time remaining:</span> <%= @cache_entry.expires_in %>
+                </div>
+                <div>
+                  <span class="font-medium">Total lifetime:</span>
+                  <%= @cache_entry.total_lifetime || "Unknown" %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 mr-2">
+                <svg class="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                Permanent
+              </span>
+              <span>No expiration (indefinite cache entry)</span>
+            </div>
+          <% end %>
+        </dd>
+      </div>
+      
+      <!-- Value Information -->
+      <div class="bg-zinc-50 dark:bg-card px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Value Type</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
           <%= @cache_entry.value.class.name rescue "Unknown" %>
+        </dd>
+      </div>
+      
+      <!-- Size Information -->
+      <div class="bg-white dark:bg-background px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Total Size</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
+          <%= @cache_entry.human_byte_size %> (<%= @cache_entry.byte_size %> bytes)
+        </dd>
+      </div>
+      <div class="bg-zinc-50 dark:bg-card px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Size Breakdown</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
+          <div class="flex flex-col space-y-2">
+            <div>
+              <span class="font-medium">Key Size:</span> <%= ActiveSupport::NumberHelper.number_to_human_size(@cache_entry.key_size) %> (<%= @cache_entry.key_size %> bytes)
+            </div>
+            <div>
+              <span class="font-medium">Value Size:</span> <%= ActiveSupport::NumberHelper.number_to_human_size(@cache_entry.value_size) %> (<%= @cache_entry.value_size %> bytes)
+            </div>
+            <div>
+              <span class="font-medium">Overhead:</span> <%= ActiveSupport::NumberHelper.number_to_human_size(@cache_entry.overhead_size) %> (<%= @cache_entry.overhead_size %> bytes, <%= @cache_entry.overhead_percentage %>% of total)
+            </div>
+          </div>
+        </dd>
+      </div>
+      
+      <!-- Security Information -->
+      <div class="bg-white dark:bg-background px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">Encryption</dt>
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-white sm:mt-0 sm:col-span-2">
+          <div class="flex flex-col gap-2">
+            <% if @cache_entry.encrypted? %>
+              <div class="flex items-center">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100 mr-2">
+                  <svg class="mr-1.5 h-3 w-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                  </svg>
+                  Encrypted
+                </span>
+              </div>
+              <div>
+                <span class="font-medium">Configuration:</span> Using SolidCache encryption
+              </div>
+              <div>
+                <span class="font-medium">Encryption Overhead:</span>
+                <%= ActiveSupport::NumberHelper.number_to_human_size(SolidCache::Entry::ESTIMATED_ENCRYPTION_OVERHEAD) rescue "~170 bytes" %>
+                added to each entry
+              </div>
+              <div>
+                <span class="font-medium">Security Note:</span>
+                <span class="text-green-600 dark:text-green-400">
+                  The cache data is encrypted at rest, providing additional security for sensitive information.
+                </span>
+              </div>
+            <% else %>
+              <div class="flex items-center">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 mr-2">
+                  <svg class="mr-1.5 h-3 w-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" clip-rule="evenodd" />
+                  </svg>
+                  Not Encrypted
+                </span>
+              </div>
+              <div>
+                <span class="font-medium">Configuration:</span> SolidCache encryption is not enabled
+              </div>
+              <div>
+                <span class="font-medium">Performance Note:</span>
+                <span class="text-blue-600 dark:text-blue-400">
+                  No encryption overhead means faster read/write operations but data is stored in plain text.
+                </span>
+              </div>
+            <% end %>
+          </div>
         </dd>
       </div>
     </dl>
   </div>
 </div>
 
-<div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg">
+<div class="mt-6 bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg">
   <div class="px-4 py-5 sm:px-6">
-    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Cache Value</h3>
+    <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Value</h3>
   </div>
-  <div class="border-t border-gray-200 dark:border-gray-700 px-4 py-5 sm:p-6">
-    <div class="bg-gray-100 dark:bg-gray-900 rounded-md p-4 overflow-x-auto">
-      <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap"><%= @cache_entry.value.inspect rescue "Unable to inspect value" %></pre>
+  <div class="border-t border-zinc-200 dark:border-zinc-700 px-4 py-5 sm:p-6">
+    <div class="bg-zinc-100 dark:bg-card rounded-md p-4 overflow-x-auto">
+      <pre class="text-sm text-zinc-800 dark:text-zinc-300 whitespace-pre-wrap"><%= @cache_entry.value.inspect rescue "Unable to inspect value" %></pre>
     </div>
   </div>
 </div>
 
 <% if defined?(SolidCacheDashboard::CacheEvent) %>
-  <div class="mt-6 bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg">
+  <div class="mt-6 bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Recent Events for this Key</h3>
+      <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Recent Events for this Key</h3>
     </div>
-    <div class="border-t border-gray-200 dark:border-gray-700">
+    <div class="border-t border-zinc-200 dark:border-zinc-700">
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-900">
+        <table class="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
+          <thead class="bg-zinc-50 dark:bg-card">
             <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Time</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Duration</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Type</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Time</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Duration</th>
             </tr>
           </thead>
-          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody class="bg-white dark:bg-background divide-y divide-zinc-200 dark:divide-zinc-700">
             <% events = SolidCacheDashboard.decorate(SolidCacheDashboard::CacheEvent.where(key_hash: @cache_entry.key_hash).order(created_at: :desc).limit(10)) %>
             <% if events.present? %>
               <% events.each do |event| %>
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                     <%= badge event.event_type.to_s.capitalize, event.color %>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                     <%= event.created_at_ago %>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                     <% if event.duration %>
                       <%= "#{event.duration.round(2)} ms" %>
                     <% else %>
@@ -105,7 +238,7 @@
               <% end %>
             <% else %>
               <tr>
-                <td colspan="3" class="px-6 py-4 text-sm text-center text-gray-500 dark:text-gray-400">
+                <td colspan="3" class="px-6 py-4 text-sm text-center text-zinc-500 dark:text-zinc-400">
                   No events found for this key
                 </td>
               </tr>

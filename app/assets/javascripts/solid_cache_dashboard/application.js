@@ -1,3 +1,5 @@
+// Lovingly borrowed from solid_queue_dashboard
+// https://github.com/akodkod/solid-queue-dashboard
 document.addEventListener('DOMContentLoaded', function() {
   // Handle clickable rows
   document.body.addEventListener('mouseup', function(event) {
@@ -54,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function refreshHomePage() {
-    // TODO: Implement a smart refresh strategy using Fetch or Turbo
     window.location.reload();
   }
 });

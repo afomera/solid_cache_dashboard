@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
     ls.readlines("\x0", chomp: true).reject do |filename|
       (filename == gemspec) ||
-        filename.start_with?(*%w[bin/ test/ spec/ features/ test_app/ .git .github Gemfile]) ||
+        filename.start_with?(*%w[bin/ test/ spec/ features/ test_app/ docs/ .git .github Gemfile]) ||
         filename.end_with?(".gem") # Exclude gem files
     end
   end
@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "solid_cache", ">= 0.2.0"
   spec.add_dependency "groupdate", ">= 6.5"
   spec.add_dependency "chartkick", ">= 5.0"
+  spec.add_dependency "pagy", ">= 6.0"
 end

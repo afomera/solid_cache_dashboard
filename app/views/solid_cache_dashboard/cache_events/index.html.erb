@@ -1,41 +1,41 @@
 <% content_for :page_title, "Cache Events" %>
 
-<div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-lg mb-6">
+<div class="bg-white dark:bg-background shadow-sm overflow-hidden rounded-lg mb-6">
   <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Cache Events</h3>
+    <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-white">Cache Events</h3>
     <div class="flex space-x-2">
       <div class="inline-flex rounded-md shadow-xs">
         <% ["all", "hit", "miss", "write", "delete"].each do |type| %>
-          <%= link_to type.capitalize, cache_events_path(event_type: type), class: "relative inline-flex items-center px-3 py-2 text-sm font-medium #{params[:event_type] == type ? 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white' : 'bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'} border border-gray-300 dark:border-gray-600" %>
+          <%= link_to type.capitalize, cache_events_path(event_type: type), class: "relative inline-flex items-center px-3 py-2 text-sm font-medium #{params[:event_type] == type ? 'bg-zinc-100 dark:bg-secondary text-zinc-700 dark:text-white' : 'bg-white dark:bg-background text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-secondary'} border border-zinc-300 dark:border-zinc-600" %>
         <% end %>
       </div>
     </div>
   </div>
-  <div class="border-t border-gray-200 dark:border-gray-700">
+  <div class="border-t border-zinc-200 dark:border-zinc-700">
     <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead class="bg-gray-50 dark:bg-gray-900">
+      <table class="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
+        <thead class="bg-zinc-50 dark:bg-card">
           <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Key</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Time</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Duration</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Type</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Key</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Time</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Duration</th>
           </tr>
         </thead>
-        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody class="bg-white dark:bg-background divide-y divide-zinc-200 dark:divide-zinc-700">
           <% if @cache_events.present? %>
             <% @cache_events.each do |event| %>
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                   <%= badge event.event_type.to_s.capitalize, event.color %>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white truncate max-w-[400px]">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900 dark:text-white truncate max-w-[400px]">
                   <%= event.key_string %>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                   <%= event.created_at_ago %>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
                   <% if event.duration %>
                     <%= "#{event.duration.round(2)} ms" %>
                   <% else %>
@@ -46,7 +46,7 @@
             <% end %>
           <% else %>
             <tr>
-              <td colspan="4" class="px-6 py-4 text-sm text-center text-gray-500 dark:text-gray-400">
+              <td colspan="4" class="px-6 py-4 text-sm text-center text-zinc-500 dark:text-zinc-400">
                 No cache events found
               </td>
             </tr>
@@ -54,12 +54,18 @@
         </tbody>
       </table>
     </div>
+    
+    <%= render partial: 'solid_cache_dashboard/application/pagination', locals: {
+      pagy: @pagy,
+      item_name: "event",
+      path_for_page: -> (page) { cache_events_path(page: page, event_type: params[:event_type]) }
+    } %>
   </div>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
   <!-- Hit Count -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-green-100 dark:bg-green-700 rounded-md p-3">
@@ -68,11 +74,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Cache Hits
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= SolidCacheDashboard::CacheEvent.hits.count %>
             </div>
           </dd>
@@ -82,7 +88,7 @@
   </div>
 
   <!-- Miss Count -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-amber-100 dark:bg-amber-700 rounded-md p-3">
@@ -91,11 +97,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Cache Misses
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= SolidCacheDashboard::CacheEvent.misses.count %>
             </div>
           </dd>
@@ -105,7 +111,7 @@
   </div>
 
   <!-- Write Count -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-blue-100 dark:bg-blue-700 rounded-md p-3">
@@ -114,11 +120,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Cache Writes
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= SolidCacheDashboard::CacheEvent.writes.count %>
             </div>
           </dd>
@@ -128,7 +134,7 @@
   </div>
 
   <!-- Delete Count -->
-  <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+  <div class="bg-white dark:bg-card overflow-hidden shadow-sm rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <div class="flex items-center">
         <div class="shrink-0 bg-red-100 dark:bg-red-700 rounded-md p-3">
@@ -137,11 +143,11 @@
           </svg>
         </div>
         <div class="ml-5 w-0 flex-1">
-          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+          <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400 truncate">
             Cache Deletes
           </dt>
           <dd class="flex items-baseline">
-            <div class="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div class="text-2xl font-semibold text-zinc-900 dark:text-white">
               <%= SolidCacheDashboard::CacheEvent.deletes.count %>
             </div>
           </dd>
