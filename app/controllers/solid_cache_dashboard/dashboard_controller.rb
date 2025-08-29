@@ -1,11 +1,13 @@
 module SolidCacheDashboard
   class DashboardController < ApplicationController
     def index
-      @chart_period = params[:chart_period] || '30m'
+      @chart_period = params[:chart_period].presence || '30m'
       @period_start = Time.current - chart_period_duration[@chart_period]
 
       @cache_entries = SolidCacheDashboard.decorate(SolidCache::Entry.where(created_at: @period_start..))
       @cache_events = SolidCacheDashboard.decorate(SolidCacheDashboard::CacheEvent.where(created_at: @period_start..))
+      @recent_cache_entries = SolidCacheDashboard.decorate(SolidCache::Entry.order(:created_at).limit(5))
+      @recent_cache_events = SolidCacheDashboard.decorate(SolidCacheDashboard::CacheEvent.order(:created_at).limit(5))
       load_charts
     end
 
