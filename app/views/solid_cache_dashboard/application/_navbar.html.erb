@@ -17,7 +17,7 @@
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
         <% if current_page?(controller: 'dashboard', action: 'index') %>
               <%= form_with url: root_path, method: :get, class: "flex gap-1.5 items-center" do |form| %>
-          <%= form.hidden_field :chart_period %>
+          <%= form.hidden_field :chart_period, value: params[:chart_period] %>
 
           <!-- Refresh icon with size-4 and text-muted-foreground class -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-muted-foreground">
