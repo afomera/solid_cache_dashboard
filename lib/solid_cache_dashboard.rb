@@ -18,6 +18,21 @@ require_relative "solid_cache_dashboard/decorators/cache_events_decorator"
 module SolidCacheDashboard
   class Error < StandardError; end
 
+  # Pagy version detection - single source of truth for API compatibility
+  def self.pagy_43_or_newer?
+    @pagy_43_or_newer ||= Gem::Version.new(Pagy::VERSION) >= Gem::Version.new("43.0.0")
+  end
+
+  # Pagy 9+ uses `limit:` instead of `items:` for per-page count
+  def self.pagy_uses_limit?
+    @pagy_uses_limit ||= Gem::Version.new(Pagy::VERSION) >= Gem::Version.new("9.0.0")
+  end
+
+  # Helper to get series from pagy object (Pagy 6–9 only, where series is public)
+  def self.pagy_series(pagy)
+    pagy.series
+  end
+
   def self.cache_keys
     SolidCache::Entry.pluck(:key_hash).uniq
   end

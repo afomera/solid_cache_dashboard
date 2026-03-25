@@ -39,4 +39,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "groupdate", ">= 6.5"
   spec.add_dependency "chartkick", ">= 5.0"
   spec.add_dependency "pagy", ">= 6.0"
+
+  spec.add_development_dependency "rails", ">= 7.0"
+  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "rake", "~> 13.0"
 end

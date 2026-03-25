@@ -1,0 +1,44 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['3.0', '3.1', '3.2', '3.3', '4.0']
+        pagy-version: ['6', '7', '8', '9', '43']
+        
+    name: Ruby ${{ matrix.ruby-version }} / Pagy ${{ matrix.pagy-version }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          
+      - name: Install dependencies with specific Pagy version
+        run: |
+          gem install bundler
+          bundle install
+          
+          # Install specific Pagy version
+          if [ "${{ matrix.pagy-version }}" = "43" ]; then
+            gem install pagy -v "~> 43.0"
+          else
+            gem install pagy -v "~> ${{ matrix.pagy-version }}.0"
+          fi
+          
+      - name: Run tests
+        run: bundle exec rake test
+        
+      - name: Report coverage
+        if: matrix.ruby-version == '3.3' && matrix.pagy-version == '43'
+        uses: codecov/codecov-action@v3

@@ -16,5 +16,10 @@ module SolidCacheDashboard
 
       date.strftime("%Y-%m-%d %H:%M:%S")
     end
+
+    # Pagy compatibility helpers
+    def pagy_series(pagy)
+      SolidCacheDashboard.pagy_series(pagy)
+    end
   end
 end

@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -e
+
+echo "Testing solid_cache_dashboard against multiple Pagy versions..."
+echo "=================================================="
+
+# Save current Gemfile.lock if it exists
+if [ -f Gemfile.lock ]; then
+  mv Gemfile.lock Gemfile.lock.backup
+fi
+
+# Test function
+test_pagy_version() {
+  local version=$1
+  echo ""
+  echo "Testing with Pagy $version..."
+  echo "---------------------------"
+  
+  # Create temporary Gemfile
+  cat > Gemfile.tmp << EOF
+source "https://rubygems.org"
+gemspec
+
+gem "rake"
+gem "minitest"
+gem "rails", ">= 7.0"
+gem "sqlite3"
+gem "pagy", "~> $version.0"
+EOF
+  
+  # Use temporary Gemfile
+  BUNDLE_GEMFILE=Gemfile.tmp bundle install --quiet
+  
+  # Run tests
+  BUNDLE_GEMFILE=Gemfile.tmp bundle exec rake test
+  
+  # Clean up
+  rm -f Gemfile.tmp Gemfile.tmp.lock
+}
+
+# Test against each version
+for version in 6 7 8 9 43; do
+  if ! test_pagy_version $version; then
+    echo "Tests failed for Pagy $version!"
+    exit 1
+  fi
+done
+
+# Restore original Gemfile.lock
+if [ -f Gemfile.lock.backup ]; then
+  mv Gemfile.lock.backup Gemfile.lock
+fi
+
+echo ""
+echo "=================================================="
+echo "All tests passed!"
